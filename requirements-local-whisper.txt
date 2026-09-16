@@ -1,0 +1,5 @@
+# Optional: local, free, private speech-to-text (TRANSCRIBE_BACKEND=local).
+# Not in requirements.txt because it is a large download and most people will
+# either use the OpenAI backend or skip audio entirely.
+#   pip install -r requirements-local-whisper.txt
+faster-whisper>=1.1,<2

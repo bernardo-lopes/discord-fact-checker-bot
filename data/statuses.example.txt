@@ -1,0 +1,19 @@
+# One status per line. The bot shows one a day, switching at midnight in Lisbon.
+# Blank lines and lines starting with # are ignored. Max 128 characters a line.
+#
+# Copy this file to data/statuses.txt and write your own. That copy is gitignored,
+# so a server's in-jokes never end up in version control.
+#
+# Discord hides the activity verb in most places, so each line has to read on its
+# own - "checking the sources", not "sources".
+#
+# Order matters: keep similar lines far apart, including the wrap from the last
+# line back to the first, or the rotation feels repetitive.
+
+checking the sources
+reading the fine print
+asking for a citation
+following the footnotes
+comparing what was said to what was published
+still looking for the primary source
+screenshots are not evidence

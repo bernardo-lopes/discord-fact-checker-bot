@@ -1,0 +1,52 @@
+services:
+  bot-da-verdade:
+    build:
+      context: .
+      args:
+        # Set to "false" to skip local speech-to-text and build much faster.
+        WITH_WHISPER: "true"
+    image: bot-da-verdade:latest
+    container_name: bot-da-verdade
+
+    # Restarts the bot if it crashes, and again when the machine reboots.
+    restart: unless-stopped
+
+    env_file: .env
+    environment:
+      # Log timestamps in your own timezone rather than UTC.
+      TZ: ${TZ:-America/Los_Angeles}
+
+    # --- containment -------------------------------------------------------
+    # The bot opens no listening ports; it only makes outbound connections. But
+    # it does feed attacker-influenced media through ffmpeg, so the container is
+    # given as little power as possible in case that ever goes wrong.
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # A runaway loop or a malicious media file can't eat the whole laptop.
+    mem_limit: 2g
+    pids_limit: 256
+    cpus: 1.5
+
+    # Stricter still: forbid writes anywhere except the two mounted volumes.
+    # Untested on this setup - if the container won't start, comment these four
+    # lines out first. /tmp must stay writable: video frames are built there.
+    # read_only: true
+    # tmpfs:
+    #   - /tmp:size=512m,mode=1777
+
+    volumes:
+      # The watchlist lives here, so it survives rebuilds.
+      - ./data:/app/data
+      # The Whisper model downloads once and is reused, instead of on every rebuild.
+      - whisper-cache:/home/verdade/.cache
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  whisper-cache:

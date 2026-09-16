@@ -1,0 +1,17 @@
+# Secrets and local state — never commit these.
+.env
+data/watchlist.json
+data/statuses.txt
+
+# Environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+
+*.log

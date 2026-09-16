@@ -1,0 +1,10 @@
+# Requires Python 3.10+ (the anthropic SDK does).
+# macOS ships 3.9 as `python3` - see the README if pip says
+# "Could not find a version that satisfies the requirement anthropic".
+discord.py==2.7.1
+anthropic>=1.4.0,<2
+aiohttp>=3.9,<4
+python-dotenv>=1.0
+# Timezone database for zoneinfo - the status rotates on Lisbon midnight,
+# and slim images and bare venvs don't ship one.
+tzdata>=2024.1

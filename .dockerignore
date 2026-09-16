@@ -1,0 +1,15 @@
+# Keep the build context small and never bake secrets into an image.
+.env
+.venv/
+venv/
+.git/
+.gitignore
+__pycache__/
+*.py[cod]
+data/
+*.log
+.DS_Store
+.idea/
+README.md
+DEPLOY.md
+requirements-local-whisper.txt
