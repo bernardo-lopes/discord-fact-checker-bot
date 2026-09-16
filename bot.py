@@ -763,10 +763,10 @@ def register_commands(bot: BotDaVerdade) -> None:
             return
         added = await bot.watchlist.add(interaction.channel_id, user.id)
         await interaction.response.send_message(
-            f"\N{EYES} A partir de agora verifico os links de X de {user.mention} "
-            f"**neste canal**."
+            f"\N{EYE}\N{VARIATION SELECTOR-16} \N{EYE}\N{VARIATION SELECTOR-16} "
+            f"A partir de agora vou estar atento ao {user.mention}, neste chat."
             if added
-            else f"{user.mention} já estava a ser verificado neste canal.",
+            else f"\N{EYE}\N{VARIATION SELECTOR-16} Já estava de olho nele.",
             ephemeral=not added,
             allowed_mentions=discord.AllowedMentions.none(),
         )
@@ -782,11 +782,11 @@ def register_commands(bot: BotDaVerdade) -> None:
         removed = await bot.watchlist.remove(interaction.channel_id, user.id)
         note = ""
         if not removed and bot.watchlist.is_seeded(user.id):
-            note = " Está fixado no `.env` (WATCH_USER_IDS), que se aplica a todos os canais — remove-o lá."
+            note = " Está fixado no `.env` (WATCH_USER_IDS), que se aplica a todos os chats — remove-o lá."
         await interaction.response.send_message(
-            f"Deixei de verificar {user.mention} neste canal."
+            f"Parei de stalkar o {user.mention}."
             if removed
-            else f"{user.mention} não estava a ser verificado neste canal.{note}",
+            else f"{user.mention} não estava a ser vigiado neste chat.{note}",
             ephemeral=not removed,
             allowed_mentions=discord.AllowedMentions.none(),
         )
@@ -800,16 +800,16 @@ def register_commands(bot: BotDaVerdade) -> None:
         ids = bot.watchlist.members(interaction.channel_id)
         if not ids:
             await interaction.response.send_message(
-                "Ninguém a ser verificado neste canal. Usa `/watch @alguém` aqui.",
+                "Ninguém a ser vigiado neste chat. Usa `/watch @alguém` aqui.",
                 ephemeral=True,
             )
             return
         lines = [
-            f"<@{uid}>" + (" *(fixo no .env, todos os canais)*" if bot.watchlist.is_seeded(uid) else "")
+            f"<@{uid}>" + (" *(fixo no .env, todos os chats)*" if bot.watchlist.is_seeded(uid) else "")
             for uid in ids
         ]
         await interaction.response.send_message(
-            "\N{EYES} A verificar automaticamente neste canal: " + ", ".join(lines),
+            "\N{EYE}\N{VARIATION SELECTOR-16} Estou a policiar neste chat: " + ", ".join(lines),
             ephemeral=True,
             allowed_mentions=discord.AllowedMentions.none(),
         )
